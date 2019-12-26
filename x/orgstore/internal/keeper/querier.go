@@ -24,7 +24,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryOrgs:
 			return queryOrgs(ctx, req, keeper)
 		default:
-			return nil, sdk.ErrUnknownRequest("unknown nameservice query endpoint")
+			return nil, sdk.ErrUnknownRequest("unknown orgstore query endpoint")
 		}
 	}
 }

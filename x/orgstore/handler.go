@@ -18,7 +18,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		case MsgDeleteUser:
 			return handleMsgDelUser(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
+			errMsg := fmt.Sprintf("Unrecognized orgstore Msg type: %v", msg.Type())
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}
@@ -56,7 +56,7 @@ func handleMsgAddUser(ctx sdk.Context, keeper Keeper, msg MsgAddUser) sdk.Result
 	if !keeper.IsNamePresent(ctx, msg.OrgName) { // Checks if the the org name already exists or not
 		return types.ErrNameDoesNotExist(types.DefaultCodeSpace).Result()
 	}
-	if !msg.OrgOwner.Equals(keeper.GetOwner(ctx, msg.Name)) {
+	if !msg.OrgOwner.Equals(keeper.GetOwner(ctx, msg.OrgName)) {
 		return sdk.ErrUnauthorized("Incorrect Owner").Result()
 	}
 
@@ -69,7 +69,7 @@ func handleMsgDelUser(ctx sdk.Context, keeper Keeper, msg MsgDeleteUser) sdk.Res
 	if !keeper.IsNamePresent(ctx, msg.OrgName) { // Checks if the the org name already exists or not
 		return types.ErrNameDoesNotExist(types.DefaultCodeSpace).Result()
 	}
-	if !msg.OrgOwner.Equals(keeper.GetOwner(ctx, msg.Name)) {
+	if !msg.OrgOwner.Equals(keeper.GetOwner(ctx, msg.OrgName)) {
 		return sdk.ErrUnauthorized("Incorrect Owner").Result()
 	}
 

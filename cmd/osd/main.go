@@ -13,7 +13,7 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
 
-	app "github.com/akhilkumarpilli/sdk-tutorial/x/orgstore"
+	app "github.com/akhilkumarpilli/sdk-tutorial"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 	abci "github.com/tendermint/tendermint/abci/types"

@@ -5,6 +5,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+type OrgUserList []OrgUser
+
 type OrgUser struct {
 	Name    string         `json:"name"`
 	Address sdk.AccAddress `json:"addresss"`
@@ -22,8 +24,12 @@ type Org struct {
 }
 
 // implement fmt.Stringer
-func (p Printer) String() string {
-	return fmt.Sprintf("%s", p)
+func (p OrgUserList) String() string {
+	return fmt.Sprintf("%v", p)
+}
+
+func (p Org) String() string {
+	return fmt.Sprintf("%v", p)
 }
 
 func NewOrg(name string, owner sdk.AccAddress) Org {

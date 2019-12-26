@@ -91,8 +91,8 @@ type orgStoreApp struct {
 	mm *module.Manager
 }
 
-// NewNameServiceApp is a constructor function for orgStoreApp
-func NewNameServiceApp(
+// NewOrgStoreApp is a constructor function for orgStoreApp
+func NewOrgStoreApp(
 	logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam.BaseApp),
 ) *orgStoreApp {
 
@@ -188,8 +188,8 @@ func NewNameServiceApp(
 			app.slashingKeeper.Hooks()),
 	)
 
-	// The NameserviceKeeper is the Keeper from the module for this tutorial
-	// It handles interactions with the namestore
+	// The OrgStoreKeeper is the Keeper from the module for this tutorial
+	// It handles interactions with the orgstore
 	app.osKeeper = orgstore.NewKeeper(
 		app.bankKeeper,
 		keys[orgstore.StoreKey],
@@ -201,7 +201,7 @@ func NewNameServiceApp(
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
-		orgstore.NewAppModule(app.osKeeper, app.bankKeeper),
+		orgstore.NewAppModule(app.osKeeper),
 		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
 		distr.NewAppModule(app.distrKeeper, app.supplyKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),

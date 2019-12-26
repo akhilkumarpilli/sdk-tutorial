@@ -35,16 +35,18 @@ func GetCmdUsers(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			name := args[0]
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/org_users/%s", queryRoute, name), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/org_users/%s", queryRoute, name), nil)
 			if err != nil {
-				fmt.Printf("could not resolve name - %s \n", name)
+				fmt.Printf("could not find organisation - %s \n", name)
 				return nil
 			}
 
-			var out []types.OrgUser
-			cdc.MustUnmarshalJSON(res, &out)
-			p := types.Printer{Response: out}
-			return cliCtx.PrintOutput(p)
+			fmt.Printf(string(res))
+
+			//var out types.OrgUserList
+			//cdc.MustUnmarshalJSON(res, &out)
+			////p := types.{Response: out}
+			return cliCtx.PrintOutput(nil)
 		},
 	}
 }
@@ -58,17 +60,20 @@ func GetCmdOrgData(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			name := args[0]
-
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/org_data/%s", queryRoute, name), nil)
+			fmt.Printf("Hello org %s", name)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/org_data/%s", queryRoute, name), nil)
 			if err != nil {
-				fmt.Printf("could not resolve whois - %s \n", name)
+				fmt.Printf("could not get data - %s \n", name)
 				return nil
 			}
 
-			var out types.Org
-			cdc.MustUnmarshalJSON(res, &out)
-			p := types.Printer{Response: out}
-			return cliCtx.PrintOutput(p)
+			fmt.Printf(string(res))
+
+			//var out types.Org
+			//cdc.MustUnmarshalJSON(res, &out)
+			//fmt.Println("Out",out)
+			////p := types.Printer{Response: out}
+			return cliCtx.PrintOutput(nil)
 		},
 	}
 }
@@ -82,7 +87,7 @@ func GetCmdOrgs(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
-			res,err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/org_list", queryRoute), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/org_list", queryRoute), nil)
 			if err != nil {
 				fmt.Printf("could not get query names\n")
 				return nil

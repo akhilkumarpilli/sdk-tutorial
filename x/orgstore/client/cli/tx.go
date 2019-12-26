@@ -15,7 +15,7 @@ import (
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	orgstoreTxCmd := &cobra.Command{
 		Use:                        types.ModuleName,
-		Short:                      "Nameservice transaction subcommands",
+		Short:                      "Orgstore transaction subcommands",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
