@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/akhilkumarpilli/sdk-tutorial/x/orgstore/internal/types"
 	"github.com/spf13/cobra"
 
@@ -90,8 +91,13 @@ func GetCmdAddUser(cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+			userAddr, convertErr := sdk.AccAddressFromBech32(args[2])
+			if convertErr != nil {
+				fmt.Print(convertErr)
+				return convertErr
+			}
 
-			msg := types.NewMsgAddUser(args[0], cliCtx.GetFromAddress(), args[1], []byte(args[2]), args[3])
+			msg := types.NewMsgAddUser(args[0], cliCtx.GetFromAddress(), args[1], userAddr, args[3])
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -113,8 +119,13 @@ func GetCmdDeleteUser(cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+			userAddr, convertErr := sdk.AccAddressFromBech32(args[1])
+			if convertErr != nil {
+				fmt.Print(convertErr)
+				return convertErr
+			}
 
-			msg := types.NewMsgDeleteUser(args[0], cliCtx.GetFromAddress(), []byte(args[1]))
+			msg := types.NewMsgDeleteUser(args[0], cliCtx.GetFromAddress(), userAddr)
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err

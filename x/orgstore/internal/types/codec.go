@@ -16,4 +16,5 @@ func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgCreateOrg{}, "orgstore/CreateOrg", nil)
 	cdc.RegisterConcrete(MsgDeleteOrg{}, "orgstore/DeleteOrg", nil)
 	cdc.RegisterConcrete(MsgAddUser{}, "orgstore/AddUser", nil)
+	cdc.RegisterConcrete(MsgDeleteUser{}, "orgstore/DeleteUser", nil)
 }

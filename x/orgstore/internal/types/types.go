@@ -9,7 +9,7 @@ type OrgUserList []OrgUser
 
 type OrgUser struct {
 	Name    string         `json:"name"`
-	Address sdk.AccAddress `json:"addresss"`
+	Address sdk.AccAddress `json:"address"`
 	Role    string         `json:"role"`
 }
 
